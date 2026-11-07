@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TechSphere IT Academy - Professional IT courses in Graphic Design, Web Development, Digital Marketing and more.">
+  <title>TechSphere IT Academy | Learn. Build. Grow.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <script>document.documentElement.dataset.theme=localStorage.getItem("ts_theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")</script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container">
+      <a href="#home" class="logo"><span>TS</span> TechSphere <b>Academy</b></a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#courses" class="nav-cta">Enroll Now</a>
+      </div>
+      <button class="theme-btn" id="themeBtn" aria-label="Switch light or dark theme">◐</button>
+      <button class="menu-btn" aria-label="Open menu">☰</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <span class="eyebrow">FUTURE-READY IT EDUCATION</span>
+          <h1>Build Skills.<br><em>Build Your Future.</em></h1>
+          <p>Learn in-demand digital skills from practical, career-focused courses designed for students, freelancers and future professionals.</p>
+          <div class="hero-actions">
+            <a href="#courses" class="btn btn-primary">Explore Courses <span>→</span></a>
+            <a href="#contact" class="btn btn-ghost">Talk to Us</a>
+          </div>
+          <div class="trust-row">
+            <div><strong>12+</strong><small>Career Courses</small></div>
+            <div><strong>100%</strong><small>Practical Learning</small></div>
+            <div><strong>24/7</strong><small>Online Support</small></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="floating-icon">✦</div>
+          <p>START YOUR DIGITAL JOURNEY</p>
+          <h3>From Beginner<br>to Professional</h3>
+          <div class="mini-progress"><span></span></div>
+          <small>Learn • Practice • Build • Earn</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="container stats-grid">
+        <div><strong>12+</strong><span>Professional Courses</span></div>
+        <div><strong>04</strong><span>Learning Tracks</span></div>
+        <div><strong>100%</strong><span>Project-Based</span></div>
+        <div><strong>01</strong><span>Career-Focused Academy</span></div>
+      </div>
+    </section>
+
+    <section class="section courses-section" id="courses">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow dark">OUR COURSES</span>
+          <h2>Choose the skill that <span>moves you forward.</span></h2>
+          <p>Professional courses with clear durations, practical projects and affordable pricing.</p>
+        </div>
+        <div class="course-grid">
+          <article class="course-card" data-course="Graphic Designing">
+            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=85" alt="Graphic Designing">
+            <div class="course-body"><span class="tag">DESIGN</span><h3>Graphic Designing</h3><p>Photoshop, Illustrator, branding, social media and professional design workflow.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 18,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="Web Development">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85" alt="Web Development">
+            <div class="course-body"><span class="tag">DEVELOPMENT</span><h3>Web Development</h3><p>HTML, CSS, JavaScript, responsive websites and modern development fundamentals.</p><div class="course-meta"><span>⏱ 4 Months</span><strong>PKR 25,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="Digital Marketing">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=85" alt="Digital Marketing">
+            <div class="course-body"><span class="tag">MARKETING</span><h3>Digital Marketing</h3><p>SEO, social media, content strategy, advertising and analytics.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 20,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="Video Editing">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=900&q=85" alt="Video Editing">
+            <div class="course-body"><span class="tag">CREATIVE</span><h3>Video Editing</h3><p>Premiere Pro, motion basics, storytelling, reels and professional editing.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 22,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="UI/UX Design">
+            <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=85" alt="UI UX Design">
+            <div class="course-body"><span class="tag">DESIGN</span><h3>UI/UX Design</h3><p>Figma, wireframes, prototypes, design systems and user-centered interfaces.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 21,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="Python Programming">
+            <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=900&q=85" alt="Python Programming">
+            <div class="course-body"><span class="tag">PROGRAMMING</span><h3>Python Programming</h3><p>Programming fundamentals, Python syntax, functions, files and real projects.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 19,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="Full Stack Development">
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=85" alt="Full Stack Development">
+            <div class="course-body"><span class="tag">DEVELOPMENT</span><h3>Full Stack Development</h3><p>Frontend, backend, APIs, databases and deployment for complete web apps.</p><div class="course-meta"><span>⏱ 6 Months</span><strong>PKR 40,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="WordPress Development">
+            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=900&q=85" alt="WordPress Development">
+            <div class="course-body"><span class="tag">WEB</span><h3>WordPress Development</h3><p>Build business websites, themes, plugins, pages and professional websites.</p><div class="course-meta"><span>⏱ 2 Months</span><strong>PKR 15,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="SEO & Content Writing">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=85" alt="SEO and Content Writing">
+            <div class="course-body"><span class="tag">CONTENT</span><h3>SEO & Content Writing</h3><p>Keyword research, on-page SEO, blogs, copywriting and content planning.</p><div class="course-meta"><span>⏱ 2 Months</span><strong>PKR 14,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="Freelancing">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85" alt="Freelancing">
+            <div class="course-body"><span class="tag">CAREER</span><h3>Freelancing</h3><p>Profiles, proposals, client communication, portfolio building and online work.</p><div class="course-meta"><span>⏱ 6 Weeks</span><strong>PKR 10,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="Motion Graphics">
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85" alt="Motion Graphics">
+            <div class="course-body"><span class="tag">CREATIVE</span><h3>Motion Graphics</h3><p>Animation principles, After Effects, titles, transitions and visual effects.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 24,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+          <article class="course-card" data-course="E-Commerce Development">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=85" alt="E Commerce Development">
+            <div class="course-body"><span class="tag">BUSINESS</span><h3>E-Commerce Development</h3><p>Online stores, product pages, payment concepts and store management.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 23,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="services section" id="services">
+      <div class="container">
+        <div class="section-heading light-heading">
+          <span class="eyebrow">WHAT WE OFFER</span>
+          <h2>More than courses.<br><span>A complete learning experience.</span></h2>
+          <p>We are offering career-focused IT courses and support to help learners turn digital skills into real projects.</p>
+        </div>
+        <div class="service-grid">
+          <div class="service"><i>01</i><h3>Practical Training</h3><p>Learn by building real-world projects instead of only studying theory.</p></div>
+          <div class="service"><i>02</i><h3>Project Portfolio</h3><p>Create work samples that can be presented to clients or employers.</p></div>
+          <div class="service"><i>03</i><h3>Career Guidance</h3><p>Get direction on skills, portfolios, freelancing and career pathways.</p></div>
+          <div class="service"><i>04</i><h3>Freelancing Support</h3><p>Understand profiles, proposals, client communication and online work.</p></div>
+          <div class="service"><i>05</i><h3>Flexible Learning</h3><p>Course options for beginners and learners moving toward professional level.</p></div>
+          <div class="service"><i>06</i><h3>Instructor Support</h3><p>Ask questions and get guidance while working through practical tasks.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about section" id="about">
+      <div class="container about-grid">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000&q=85" alt="Students learning">
+          <div class="about-badge"><strong>12+</strong><span>Career Tracks</span></div>
+        </div>
+        <div class="about-copy">
+          <span class="eyebrow dark">ABOUT TECHSPHERE</span>
+          <h2>Learn today's skills for <span>tomorrow's opportunities.</span></h2>
+          <p>TechSphere IT Academy is a modern training platform focused on practical digital education. Our programs cover creative, technical, marketing and career skills.</p>
+          <div class="check-list">
+            <div>✓ Beginner-friendly learning paths</div>
+            <div>✓ Practical assignments and projects</div>
+            <div>✓ Portfolio-focused training</div>
+            <div>✓ Skills for freelancing and employment</div>
+          </div>
+          <a href="#contact" class="btn btn-dark">Contact Admissions →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <span class="eyebrow dark">CONTACT ADMISSIONS</span>
+          <h2>Ready to start your <span>next chapter?</span></h2>
+          <p>Contact our admissions team for course schedules, batch availability, payment details and enrollment guidance.</p>
+          <div class="contact-item"><b>✉</b><div><small>Email</small><p>syedhasanshahqadri@gmail.com</p></div></div>
+          <div class="contact-item"><b>☎</b><div><small>Phone</small><p>0300-9260391</p></div></div>
+          <div class="contact-item"><b>⌖</b><div><small>Campus</small><p>Karachi, Pakistan</p></div></div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <h3>Send an inquiry</h3>
+          <div class="two"><input required name="name" type="text" placeholder="Your name"><input required name="email" type="email" placeholder="Email address"></div>
+          <input required name="phone" type="tel" placeholder="Mobile number">
+          <select required name="course"><option value="">Select course</option><option>Graphic Designing</option><option>Web Development</option><option>Digital Marketing</option><option>Video Editing</option><option>UI/UX Design</option><option>Python Programming</option><option>Full Stack Development</option><option>WordPress Development</option><option>SEO & Content Writing</option><option>Freelancing</option><option>Motion Graphics</option><option>E-Commerce Development</option></select>
+          <textarea required name="message" rows="5" placeholder="Your message"></textarea>
+          <button class="btn btn-primary" type="submit">Send Inquiry →</button>
+          <p class="form-note" id="contactMessage" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div><a href="#home" class="logo footer-logo"><span>TS</span> TechSphere <b>Academy</b></a><p>Learn. Build. Grow.</p></div>
+      <div><h4>Explore</h4><a href="#courses">Courses</a><a href="#services">Services</a><a href="#about">About Us</a></div>
+      <div><h4>Support</h4><a href="#contact">Admissions</a><a href="#contact">Contact</a><a href="#home">Back to top ↑</a></div>
+    </div>
+    <div class="copyright">© 2026 TechSphere IT Academy. All rights reserved.</div>
+  </footer>
+
+  <div class="modal" id="enrollModal" aria-hidden="true">
+    <div class="modal-box">
+      <button class="close-modal" aria-label="Close">×</button>
+      <span class="eyebrow dark">COURSE ENROLLMENT</span>
+      <h2>Enroll in <span id="selectedCourse">Course</span></h2>
+      <form id="enrollForm">
+        <input type="hidden" id="courseField">
+        <p class="fee-line">Course fee: <strong id="feeText"></strong></p>
+        <div class="two"><label>Full Name<input required name="name" type="text" placeholder="Enter full name"></label><label>Mobile Number<input required name="mobile" type="tel" placeholder="e.g. 03001234567"></label></div>
+        <label>Gmail / Email<input required name="email" type="email" placeholder="you@gmail.com"></label>
+        <div class="two"><label>CNIC Number<input required name="cnic" type="text" inputmode="numeric" placeholder="e.g. 4210112345671"></label><label>Date of Birth<input required name="dob" type="date"></label></div>
+        <div class="two"><label>City<input required name="city" type="text" placeholder="Karachi"></label><label>Education<input required name="education" type="text" placeholder="Matric / Intermediate / Graduate"></label></div>
+        <label>Why do you want to join?<textarea name="reason" rows="3" placeholder="Tell us briefly about your goal"></textarea></label>
+        <h4 class="pay-title">Payment method</h4>
+        <div class="pays">
+          <label class="pay"><input type="radio" name="pay" value="easypaisa" checked> Easypaisa</label>
+          <label class="pay"><input type="radio" name="pay" value="jazzcash"> JazzCash</label>
+          <label class="pay"><input type="radio" name="pay" value="cash"> Cash at the academy</label>
+        </div>
+        <div class="wallet" id="wallet"><img id="walletQr" alt="Payment QR code"><div><p>Send <b id="walletAmt"></b> to <b id="walletNum"></b>, then enter the transaction ID.</p><input name="trx" id="trx" placeholder="Transaction ID"></div></div>
+        <p class="fee-line" id="cashNote" hidden>Pay the fee in cash at the academy. Your seat is confirmed after payment.</p>
+        <label class="agree"><input required type="checkbox"> I confirm that the information provided is accurate.</label>
+        <button class="btn btn-primary full" type="submit">Submit Enrollment Application →</button>
+        <p class="form-note" id="enrollMessage" role="status"></p>
+      </form>
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
