@@ -3,19 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="TechSphere IT Academy - Professional IT courses in Graphic Design, Web Development, Digital Marketing and more.">
+  <meta name="description" content="Build practical digital skills at TechSphere IT Academy. Explore professional courses in design, development, marketing and more.">
+  <meta name="theme-color" content="#051f20">
+  <meta name="color-scheme" content="light dark">
   <title>TechSphere IT Academy | Learn. Build. Grow.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-  <script>document.documentElement.dataset.theme=localStorage.getItem("ts_theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")</script>
+  <script>
+    (() => {
+      let saved = null;
+      try { saved = localStorage.getItem("ts_theme"); } catch (error) {}
+      const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = saved || (preferred ? "dark" : "light");
+    })();
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
     <nav class="nav container">
       <a href="#home" class="logo"><span>TS</span> TechSphere <b>Academy</b></a>
-      <div class="nav-links">
+      <div class="nav-links" id="primaryNav">
         <a href="#home">Home</a>
         <a href="#courses">Courses</a>
         <a href="#services">Services</a>
@@ -23,8 +32,8 @@
         <a href="#contact">Contact</a>
         <a href="#courses" class="nav-cta">Enroll Now</a>
       </div>
-      <button class="theme-btn" id="themeBtn" aria-label="Switch light or dark theme">◐</button>
-      <button class="menu-btn" aria-label="Open menu">☰</button>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark theme" title="Toggle theme"><span aria-hidden="true">☾</span></button>
+      <button class="menu-btn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNav"><span aria-hidden="true">☰</span></button>
     </nav>
   </header>
 
@@ -72,55 +81,75 @@
           <h2>Choose the skill that <span>moves you forward.</span></h2>
           <p>Professional courses with clear durations, practical projects and affordable pricing.</p>
         </div>
+        <div class="course-tools" aria-label="Find a course">
+          <label class="course-search">
+            <span aria-hidden="true">⌕</span>
+            <input id="courseSearch" type="search" placeholder="Search courses..." aria-label="Search courses">
+          </label>
+          <div class="course-filters" role="group" aria-label="Filter courses">
+            <button class="filter-chip active" type="button" data-filter="all" aria-pressed="true">All courses</button>
+            <button class="filter-chip" type="button" data-filter="design" aria-pressed="false">Design</button>
+            <button class="filter-chip" type="button" data-filter="development" aria-pressed="false">Development</button>
+            <button class="filter-chip" type="button" data-filter="marketing" aria-pressed="false">Marketing</button>
+            <button class="filter-chip" type="button" data-filter="career" aria-pressed="false">Career</button>
+          </div>
+          <p class="course-count" id="courseCount" aria-live="polite">Showing all 12 courses</p>
+        </div>
         <div class="course-grid">
-          <article class="course-card" data-course="Graphic Designing">
+          <article class="course-card" data-course="Graphic Designing" data-category="design">
             <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=85" alt="Graphic Designing">
             <div class="course-body"><span class="tag">DESIGN</span><h3>Graphic Designing</h3><p>Photoshop, Illustrator, branding, social media and professional design workflow.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 18,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="Web Development">
+          <article class="course-card" data-course="Web Development" data-category="development">
             <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85" alt="Web Development">
             <div class="course-body"><span class="tag">DEVELOPMENT</span><h3>Web Development</h3><p>HTML, CSS, JavaScript, responsive websites and modern development fundamentals.</p><div class="course-meta"><span>⏱ 4 Months</span><strong>PKR 25,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="Digital Marketing">
+          <article class="course-card" data-course="Digital Marketing" data-category="marketing">
             <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=85" alt="Digital Marketing">
             <div class="course-body"><span class="tag">MARKETING</span><h3>Digital Marketing</h3><p>SEO, social media, content strategy, advertising and analytics.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 20,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="Video Editing">
+          <article class="course-card" data-course="Video Editing" data-category="design">
             <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=900&q=85" alt="Video Editing">
             <div class="course-body"><span class="tag">CREATIVE</span><h3>Video Editing</h3><p>Premiere Pro, motion basics, storytelling, reels and professional editing.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 22,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="UI/UX Design">
+          <article class="course-card" data-course="UI/UX Design" data-category="design">
             <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=85" alt="UI UX Design">
             <div class="course-body"><span class="tag">DESIGN</span><h3>UI/UX Design</h3><p>Figma, wireframes, prototypes, design systems and user-centered interfaces.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 21,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="Python Programming">
+          <article class="course-card" data-course="Python Programming" data-category="development">
             <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=900&q=85" alt="Python Programming">
             <div class="course-body"><span class="tag">PROGRAMMING</span><h3>Python Programming</h3><p>Programming fundamentals, Python syntax, functions, files and real projects.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 19,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="Full Stack Development">
+          <article class="course-card" data-course="Full Stack Development" data-category="development">
             <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=85" alt="Full Stack Development">
             <div class="course-body"><span class="tag">DEVELOPMENT</span><h3>Full Stack Development</h3><p>Frontend, backend, APIs, databases and deployment for complete web apps.</p><div class="course-meta"><span>⏱ 6 Months</span><strong>PKR 40,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="WordPress Development">
+          <article class="course-card" data-course="WordPress Development" data-category="development">
             <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=900&q=85" alt="WordPress Development">
             <div class="course-body"><span class="tag">WEB</span><h3>WordPress Development</h3><p>Build business websites, themes, plugins, pages and professional websites.</p><div class="course-meta"><span>⏱ 2 Months</span><strong>PKR 15,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="SEO & Content Writing">
+          <article class="course-card" data-course="SEO & Content Writing" data-category="marketing">
             <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=85" alt="SEO and Content Writing">
             <div class="course-body"><span class="tag">CONTENT</span><h3>SEO & Content Writing</h3><p>Keyword research, on-page SEO, blogs, copywriting and content planning.</p><div class="course-meta"><span>⏱ 2 Months</span><strong>PKR 14,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="Freelancing">
+          <article class="course-card" data-course="Freelancing" data-category="career">
             <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85" alt="Freelancing">
             <div class="course-body"><span class="tag">CAREER</span><h3>Freelancing</h3><p>Profiles, proposals, client communication, portfolio building and online work.</p><div class="course-meta"><span>⏱ 6 Weeks</span><strong>PKR 10,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="Motion Graphics">
+          <article class="course-card" data-course="Motion Graphics" data-category="design">
             <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85" alt="Motion Graphics">
             <div class="course-body"><span class="tag">CREATIVE</span><h3>Motion Graphics</h3><p>Animation principles, After Effects, titles, transitions and visual effects.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 24,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
-          <article class="course-card" data-course="E-Commerce Development">
+          <article class="course-card" data-course="E-Commerce Development" data-category="development">
             <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=85" alt="E Commerce Development">
             <div class="course-body"><span class="tag">BUSINESS</span><h3>E-Commerce Development</h3><p>Online stores, product pages, payment concepts and store management.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 23,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
           </article>
+        </div>
+        <div class="empty-state" id="courseEmpty" hidden>
+          <span aria-hidden="true">⌕</span>
+          <h3>No matching courses</h3>
+          <p>Try another keyword or choose a different category.</p>
+          <button class="btn btn-secondary" id="clearCourseFilters" type="button">Clear filters</button>
         </div>
       </div>
     </section>
@@ -187,6 +216,8 @@
     </section>
   </main>
 
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
   <footer>
     <div class="container footer-grid">
       <div><a href="#home" class="logo footer-logo"><span>TS</span> TechSphere <b>Academy</b></a><p>Learn. Build. Grow.</p></div>
