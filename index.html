@@ -1,262 +1,672 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Build practical digital skills at TechSphere IT Academy. Explore professional courses in design, development, marketing and more.">
-  <meta name="theme-color" content="#051f20">
-  <meta name="color-scheme" content="light dark">
-  <title>TechSphere IT Academy | Learn. Build. Grow.</title>
+  <meta name="description" content="TechSphere IT Academy - Learn practical digital skills and build your future.">
+  <meta name="theme-color" content="#0B3D3B">
+
+  <title>TechSphere Academy | Learn. Build. Grow.</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <script>
     (() => {
       let saved = null;
-      try { saved = localStorage.getItem("ts_theme"); } catch (error) {}
-      const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      document.documentElement.dataset.theme = saved || (preferred ? "dark" : "light");
+      try {
+        saved = localStorage.getItem("ts_theme");
+      } catch (e) {}
+
+      document.documentElement.dataset.theme =
+        saved ||
+        (matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark" : "light");
     })();
   </script>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+  <!-- HEADER -->
   <header class="header">
     <nav class="nav container">
-      <a href="#home" class="logo"><span>TS</span> TechSphere <b>Academy</b></a>
+
+      <a href="#home" class="logo">
+        <span class="logo-icon">TS</span>
+        <span>TechSphere <b>Academy</b></span>
+      </a>
+
       <div class="nav-links" id="primaryNav">
         <a href="#home">Home</a>
         <a href="#courses">Courses</a>
         <a href="#services">Services</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="#courses" class="nav-cta">Enroll Now</a>
+        <a href="#courses" class="nav-cta">Enroll Now ↗</a>
       </div>
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark theme" title="Toggle theme"><span aria-hidden="true">☾</span></button>
-      <button class="menu-btn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNav"><span aria-hidden="true">☰</span></button>
+
+      <div class="nav-actions">
+        <button id="themeBtn" class="theme-btn"
+          aria-label="Switch theme">☾</button>
+
+        <button class="menu-btn" aria-label="Open menu"
+          aria-expanded="false" aria-controls="primaryNav">☰</button>
+      </div>
+
     </nav>
   </header>
 
   <main>
+
+    <!-- HERO -->
     <section class="hero" id="home">
-      <div class="hero-overlay"></div>
+
+      <div class="hero-glow glow-one"></div>
+      <div class="hero-glow glow-two"></div>
+
       <div class="container hero-content">
+
         <div class="hero-copy">
-          <span class="eyebrow">FUTURE-READY IT EDUCATION</span>
-          <h1>Build Skills.<br><em>Build Your Future.</em></h1>
-          <p>Learn in-demand digital skills from practical, career-focused courses designed for students, freelancers and future professionals.</p>
+
+          <span class="eyebrow">
+            <span class="live-dot"></span>
+            FUTURE-READY IT EDUCATION
+          </span>
+
+          <h1>
+            Learn Skills.<br>
+            <span>Build Your</span><br>
+            Digital Future.
+          </h1>
+
+          <p>
+            Unlock your potential with practical IT courses,
+            expert guidance and real-world projects.
+            Turn your passion into professional skills.
+          </p>
+
           <div class="hero-actions">
-            <a href="#courses" class="btn btn-primary">Explore Courses <span>→</span></a>
-            <a href="#contact" class="btn btn-ghost">Talk to Us</a>
+            <a href="#courses" class="btn btn-primary">
+              Explore Courses <span>↗</span>
+            </a>
+
+            <a href="#about" class="btn btn-outline">
+              Discover More →
+            </a>
           </div>
+
           <div class="trust-row">
-            <div><strong>12+</strong><small>Career Courses</small></div>
-            <div><strong>100%</strong><small>Practical Learning</small></div>
-            <div><strong>24/7</strong><small>Online Support</small></div>
+            <div>
+              <strong>12+</strong>
+              <small>Professional Courses</small>
+            </div>
+
+            <div>
+              <strong>100%</strong>
+              <small>Practical Learning</small>
+            </div>
+
+            <div>
+              <strong>24/7</strong>
+              <small>Learning Support</small>
+            </div>
           </div>
+
         </div>
-        <div class="hero-card">
-          <div class="floating-icon">✦</div>
-          <p>START YOUR DIGITAL JOURNEY</p>
-          <h3>From Beginner<br>to Professional</h3>
-          <div class="mini-progress"><span></span></div>
-          <small>Learn • Practice • Build • Earn</small>
+
+        <div class="hero-visual">
+
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+
+          <div class="floating-card card-back">
+            <span>✦</span>
+            <p>CREATIVE THINKING</p>
+          </div>
+
+          <div class="main-glass-card">
+
+            <div class="glass-top">
+              <span class="glass-icon">✧</span>
+              <span class="glass-status">● Learning Mode</span>
+            </div>
+
+            <div class="glass-content">
+              <small>YOUR JOURNEY STARTS HERE</small>
+              <h2>Design.<br>Develop.<br><span>Dominate.</span></h2>
+              <p>Learn today. Lead tomorrow.</p>
+            </div>
+
+            <div class="glass-bottom">
+              <span>✦</span>
+              <span>TECHSPHERE ACADEMY</span>
+            </div>
+
+          </div>
+
+          <div class="floating-card card-front">
+            <span>⚡</span>
+            <div>
+              <strong>Future Ready</strong>
+              <small>Build your career</small>
+            </div>
+          </div>
+
         </div>
+
       </div>
+
+      <a href="#courses" class="scroll-indicator">
+        <span></span> SCROLL TO EXPLORE
+      </a>
+
     </section>
 
+    <!-- STATS -->
     <section class="stats">
       <div class="container stats-grid">
-        <div><strong>12+</strong><span>Professional Courses</span></div>
-        <div><strong>04</strong><span>Learning Tracks</span></div>
-        <div><strong>100%</strong><span>Project-Based</span></div>
-        <div><strong>01</strong><span>Career-Focused Academy</span></div>
+
+        <div>
+          <strong>12+</strong>
+          <span>Professional Courses</span>
+        </div>
+
+        <div>
+          <strong>04</strong>
+          <span>Learning Categories</span>
+        </div>
+
+        <div>
+          <strong>100%</strong>
+          <span>Practical Projects</span>
+        </div>
+
+        <div>
+          <strong>01</strong>
+          <span>Career-Focused Academy</span>
+        </div>
+
       </div>
     </section>
 
+    <!-- COURSES -->
     <section class="section courses-section" id="courses">
+
       <div class="container">
+
         <div class="section-heading">
-          <span class="eyebrow dark">OUR COURSES</span>
-          <h2>Choose the skill that <span>moves you forward.</span></h2>
-          <p>Professional courses with clear durations, practical projects and affordable pricing.</p>
+          <span class="eyebrow dark">EXPLORE OUR COURSES</span>
+
+          <h2>
+            Choose Your Skill.<br>
+            <span>Shape Your Future.</span>
+          </h2>
+
+          <p>
+            Discover professional courses designed to help you
+            learn, create and grow in the digital world.
+          </p>
         </div>
-        <div class="course-tools" aria-label="Find a course">
+
+        <div class="course-tools">
+
           <label class="course-search">
-            <span aria-hidden="true">⌕</span>
-            <input id="courseSearch" type="search" placeholder="Search courses..." aria-label="Search courses">
+            <span>⌕</span>
+            <input type="search" id="courseSearch"
+              placeholder="Search your favourite course..."
+              aria-label="Search courses">
           </label>
-          <div class="course-filters" role="group" aria-label="Filter courses">
-            <button class="filter-chip active" type="button" data-filter="all" aria-pressed="true">All courses</button>
-            <button class="filter-chip" type="button" data-filter="design" aria-pressed="false">Design</button>
-            <button class="filter-chip" type="button" data-filter="development" aria-pressed="false">Development</button>
-            <button class="filter-chip" type="button" data-filter="marketing" aria-pressed="false">Marketing</button>
-            <button class="filter-chip" type="button" data-filter="career" aria-pressed="false">Career</button>
+
+          <div class="course-filters">
+
+            <button class="filter-chip active"
+              data-filter="all" aria-pressed="true">All</button>
+
+            <button class="filter-chip"
+              data-filter="design" aria-pressed="false">Design</button>
+
+            <button class="filter-chip"
+              data-filter="development" aria-pressed="false">Development</button>
+
+            <button class="filter-chip"
+              data-filter="marketing" aria-pressed="false">Marketing</button>
+
+            <button class="filter-chip"
+              data-filter="career" aria-pressed="false">Career</button>
+
           </div>
-          <p class="course-count" id="courseCount" aria-live="polite">Showing all 12 courses</p>
+
+          <p class="course-count" id="courseCount" aria-live="polite">
+            Showing all courses
+          </p>
+
         </div>
-        <div class="course-grid">
-          <article class="course-card" data-course="Graphic Designing" data-category="design">
-            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=85" alt="Graphic Designing">
-            <div class="course-body"><span class="tag">DESIGN</span><h3>Graphic Designing</h3><p>Photoshop, Illustrator, branding, social media and professional design workflow.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 18,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="Web Development" data-category="development">
-            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85" alt="Web Development">
-            <div class="course-body"><span class="tag">DEVELOPMENT</span><h3>Web Development</h3><p>HTML, CSS, JavaScript, responsive websites and modern development fundamentals.</p><div class="course-meta"><span>⏱ 4 Months</span><strong>PKR 25,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="Digital Marketing" data-category="marketing">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=85" alt="Digital Marketing">
-            <div class="course-body"><span class="tag">MARKETING</span><h3>Digital Marketing</h3><p>SEO, social media, content strategy, advertising and analytics.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 20,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="Video Editing" data-category="design">
-            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=900&q=85" alt="Video Editing">
-            <div class="course-body"><span class="tag">CREATIVE</span><h3>Video Editing</h3><p>Premiere Pro, motion basics, storytelling, reels and professional editing.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 22,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="UI/UX Design" data-category="design">
-            <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=85" alt="UI UX Design">
-            <div class="course-body"><span class="tag">DESIGN</span><h3>UI/UX Design</h3><p>Figma, wireframes, prototypes, design systems and user-centered interfaces.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 21,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="Python Programming" data-category="development">
-            <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=900&q=85" alt="Python Programming">
-            <div class="course-body"><span class="tag">PROGRAMMING</span><h3>Python Programming</h3><p>Programming fundamentals, Python syntax, functions, files and real projects.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 19,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="Full Stack Development" data-category="development">
-            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=85" alt="Full Stack Development">
-            <div class="course-body"><span class="tag">DEVELOPMENT</span><h3>Full Stack Development</h3><p>Frontend, backend, APIs, databases and deployment for complete web apps.</p><div class="course-meta"><span>⏱ 6 Months</span><strong>PKR 40,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="WordPress Development" data-category="development">
-            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=900&q=85" alt="WordPress Development">
-            <div class="course-body"><span class="tag">WEB</span><h3>WordPress Development</h3><p>Build business websites, themes, plugins, pages and professional websites.</p><div class="course-meta"><span>⏱ 2 Months</span><strong>PKR 15,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="SEO & Content Writing" data-category="marketing">
-            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=85" alt="SEO and Content Writing">
-            <div class="course-body"><span class="tag">CONTENT</span><h3>SEO & Content Writing</h3><p>Keyword research, on-page SEO, blogs, copywriting and content planning.</p><div class="course-meta"><span>⏱ 2 Months</span><strong>PKR 14,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="Freelancing" data-category="career">
-            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85" alt="Freelancing">
-            <div class="course-body"><span class="tag">CAREER</span><h3>Freelancing</h3><p>Profiles, proposals, client communication, portfolio building and online work.</p><div class="course-meta"><span>⏱ 6 Weeks</span><strong>PKR 10,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="Motion Graphics" data-category="design">
-            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85" alt="Motion Graphics">
-            <div class="course-body"><span class="tag">CREATIVE</span><h3>Motion Graphics</h3><p>Animation principles, After Effects, titles, transitions and visual effects.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 24,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
-          <article class="course-card" data-course="E-Commerce Development" data-category="development">
-            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=85" alt="E Commerce Development">
-            <div class="course-body"><span class="tag">BUSINESS</span><h3>E-Commerce Development</h3><p>Online stores, product pages, payment concepts and store management.</p><div class="course-meta"><span>⏱ 3 Months</span><strong>PKR 23,000</strong></div><button class="enroll-btn">Enroll Now →</button></div>
-          </article>
+
+        <div class="course-grid" id="courseGrid">
+          <!-- Courses are generated by script.js -->
         </div>
+
         <div class="empty-state" id="courseEmpty" hidden>
-          <span aria-hidden="true">⌕</span>
-          <h3>No matching courses</h3>
-          <p>Try another keyword or choose a different category.</p>
-          <button class="btn btn-secondary" id="clearCourseFilters" type="button">Clear filters</button>
+          <h3>No courses found!</h3>
+          <p>Try searching with another keyword.</p>
+          <button class="btn btn-primary" id="clearFilters">
+            Clear Filters
+          </button>
         </div>
+
       </div>
     </section>
 
+    <!-- SERVICES -->
     <section class="services section" id="services">
+
       <div class="container">
+
         <div class="section-heading light-heading">
-          <span class="eyebrow">WHAT WE OFFER</span>
-          <h2>More than courses.<br><span>A complete learning experience.</span></h2>
-          <p>We are offering career-focused IT courses and support to help learners turn digital skills into real projects.</p>
+          <span class="eyebrow">WHY TECHSPHERE?</span>
+
+          <h2>
+            More Than Learning.<br>
+            <span>A Complete Experience.</span>
+          </h2>
+
+          <p>
+            We focus on practical education, creative thinking
+            and professional development.
+          </p>
         </div>
+
         <div class="service-grid">
-          <div class="service"><i>01</i><h3>Practical Training</h3><p>Learn by building real-world projects instead of only studying theory.</p></div>
-          <div class="service"><i>02</i><h3>Project Portfolio</h3><p>Create work samples that can be presented to clients or employers.</p></div>
-          <div class="service"><i>03</i><h3>Career Guidance</h3><p>Get direction on skills, portfolios, freelancing and career pathways.</p></div>
-          <div class="service"><i>04</i><h3>Freelancing Support</h3><p>Understand profiles, proposals, client communication and online work.</p></div>
-          <div class="service"><i>05</i><h3>Flexible Learning</h3><p>Course options for beginners and learners moving toward professional level.</p></div>
-          <div class="service"><i>06</i><h3>Instructor Support</h3><p>Ask questions and get guidance while working through practical tasks.</p></div>
+
+          <article class="service">
+            <span class="service-icon">✦</span>
+            <small>01 / LEARNING</small>
+            <h3>Practical Training</h3>
+            <p>Learn by creating real-world projects and solving practical problems.</p>
+          </article>
+
+          <article class="service">
+            <span class="service-icon">◈</span>
+            <small>02 / PORTFOLIO</small>
+            <h3>Project Portfolio</h3>
+            <p>Build a professional portfolio to showcase your skills.</p>
+          </article>
+
+          <article class="service">
+            <span class="service-icon">↗</span>
+            <small>03 / CAREER</small>
+            <h3>Career Guidance</h3>
+            <p>Get guidance for professional growth and career opportunities.</p>
+          </article>
+
+          <article class="service">
+            <span class="service-icon">⌘</span>
+            <small>04 / FREELANCING</small>
+            <h3>Freelancing Support</h3>
+            <p>Understand online work, clients and professional communication.</p>
+          </article>
+
+          <article class="service">
+            <span class="service-icon">◎</span>
+            <small>05 / FLEXIBILITY</small>
+            <h3>Flexible Learning</h3>
+            <p>Choose learning paths according to your goals and skill level.</p>
+          </article>
+
+          <article class="service">
+            <span class="service-icon">✧</span>
+            <small>06 / SUPPORT</small>
+            <h3>Instructor Support</h3>
+            <p>Receive guidance while working on assignments and projects.</p>
+          </article>
+
         </div>
+
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section class="about section" id="about">
+
       <div class="container about-grid">
+
         <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000&q=85" alt="Students learning">
-          <div class="about-badge"><strong>12+</strong><span>Career Tracks</span></div>
-        </div>
-        <div class="about-copy">
-          <span class="eyebrow dark">ABOUT TECHSPHERE</span>
-          <h2>Learn today's skills for <span>tomorrow's opportunities.</span></h2>
-          <p>TechSphere IT Academy is a modern training platform focused on practical digital education. Our programs cover creative, technical, marketing and career skills.</p>
-          <div class="check-list">
-            <div>✓ Beginner-friendly learning paths</div>
-            <div>✓ Practical assignments and projects</div>
-            <div>✓ Portfolio-focused training</div>
-            <div>✓ Skills for freelancing and employment</div>
+
+          <img
+            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000&q=85"
+            alt="Students learning together">
+
+          <div class="about-badge">
+            <strong>12+</strong>
+            <span>Career Learning Paths</span>
           </div>
-          <a href="#contact" class="btn btn-dark">Contact Admissions →</a>
+
+          <div class="image-decoration"></div>
+
         </div>
+
+        <div class="about-copy">
+
+          <span class="eyebrow dark">ABOUT TECHSPHERE</span>
+
+          <h2>
+            Learn Today's Skills
+            <span>For Tomorrow's Opportunities.</span>
+          </h2>
+
+          <p>
+            TechSphere IT Academy is dedicated to practical
+            digital education. Our courses help students develop
+            creative, technical and professional skills.
+          </p>
+
+          <div class="check-list">
+            <div><span>✓</span> Beginner-friendly learning paths</div>
+            <div><span>✓</span> Practical assignments and projects</div>
+            <div><span>✓</span> Portfolio-focused training</div>
+            <div><span>✓</span> Freelancing and career guidance</div>
+          </div>
+
+          <a href="#contact" class="btn btn-dark">
+            Contact Admissions ↗
+          </a>
+
+        </div>
+
       </div>
     </section>
 
+    <!-- CONTACT -->
     <section class="contact section" id="contact">
+
       <div class="container contact-grid">
+
         <div class="contact-copy">
-          <span class="eyebrow dark">CONTACT ADMISSIONS</span>
-          <h2>Ready to start your <span>next chapter?</span></h2>
-          <p>Contact our admissions team for course schedules, batch availability, payment details and enrollment guidance.</p>
-          <div class="contact-item"><b>✉</b><div><small>Email</small><p>syedhasanshahqadri@gmail.com</p></div></div>
-          <div class="contact-item"><b>☎</b><div><small>Phone</small><p>0300-9260391</p></div></div>
-          <div class="contact-item"><b>⌖</b><div><small>Campus</small><p>Karachi, Pakistan</p></div></div>
+
+          <span class="eyebrow dark">LET'S CONNECT</span>
+
+          <h2>
+            Start Your Next<br>
+            <span>Digital Chapter.</span>
+          </h2>
+
+          <p>
+            Have questions about courses, batches or admissions?
+            Send us a message and our team will guide you.
+          </p>
+
+          <div class="contact-item">
+            <b>✉</b>
+            <div>
+              <small>Email Address</small>
+              <p>syedhasanshahqadri@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <b>☎</b>
+            <div>
+              <small>Phone Number</small>
+              <p>0300-9260391</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <b>⌖</b>
+            <div>
+              <small>Our Campus</small>
+              <p>Karachi, Pakistan</p>
+            </div>
+          </div>
+
         </div>
+
         <form class="contact-form" id="contactForm">
-          <h3>Send an inquiry</h3>
-          <div class="two"><input required name="name" type="text" placeholder="Your name"><input required name="email" type="email" placeholder="Email address"></div>
-          <input required name="phone" type="tel" placeholder="Mobile number">
-          <select required name="course"><option value="">Select course</option><option>Graphic Designing</option><option>Web Development</option><option>Digital Marketing</option><option>Video Editing</option><option>UI/UX Design</option><option>Python Programming</option><option>Full Stack Development</option><option>WordPress Development</option><option>SEO & Content Writing</option><option>Freelancing</option><option>Motion Graphics</option><option>E-Commerce Development</option></select>
-          <textarea required name="message" rows="5" placeholder="Your message"></textarea>
-          <button class="btn btn-primary" type="submit">Send Inquiry →</button>
+
+          <span class="form-label">SEND US A MESSAGE</span>
+          <h3>Let's Talk!</h3>
+
+          <div class="two">
+            <input required name="name"
+              type="text" placeholder="Your name">
+
+            <input required name="email"
+              type="email" placeholder="Email address">
+          </div>
+
+          <input required name="phone"
+            type="tel" placeholder="Mobile number">
+
+          <select required name="course">
+            <option value="">Choose a course</option>
+            <option>Graphic Designing</option>
+            <option>Web Development</option>
+            <option>Digital Marketing</option>
+            <option>Video Editing</option>
+            <option>UI/UX Design</option>
+            <option>Python Programming</option>
+            <option>Full Stack Development</option>
+            <option>WordPress Development</option>
+            <option>SEO & Content Writing</option>
+            <option>Freelancing</option>
+            <option>Motion Graphics</option>
+            <option>E-Commerce Development</option>
+          </select>
+
+          <textarea required name="message"
+            rows="5" placeholder="Write your message..."></textarea>
+
+          <button class="btn btn-primary full" type="submit">
+            Send Inquiry ↗
+          </button>
+
           <p class="form-note" id="contactMessage" role="status"></p>
+
         </form>
+
       </div>
     </section>
+
   </main>
 
-  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
-  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+  <!-- FOOTER -->
   <footer>
+
     <div class="container footer-grid">
-      <div><a href="#home" class="logo footer-logo"><span>TS</span> TechSphere <b>Academy</b></a><p>Learn. Build. Grow.</p></div>
-      <div><h4>Explore</h4><a href="#courses">Courses</a><a href="#services">Services</a><a href="#about">About Us</a></div>
-      <div><h4>Support</h4><a href="#contact">Admissions</a><a href="#contact">Contact</a><a href="#home">Back to top ↑</a></div>
+
+      <div>
+        <a href="#home" class="logo footer-logo">
+          <span class="logo-icon">TS</span>
+          <span>TechSphere <b>Academy</b></span>
+        </a>
+
+        <p>Learn. Build. Grow.</p>
+        <p>Empowering the next generation of digital professionals.</p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <a href="#courses">Courses</a>
+        <a href="#services">Services</a>
+        <a href="#about">About Us</a>
+      </div>
+
+      <div>
+        <h4>Support</h4>
+        <a href="#contact">Admissions</a>
+        <a href="#contact">Contact Us</a>
+        <a href="#home">Back to Top ↑</a>
+      </div>
+
     </div>
-    <div class="copyright">© 2026 TechSphere IT Academy. All rights reserved.</div>
+
+    <div class="copyright">
+      © 2026 TechSphere IT Academy. All Rights Reserved.
+    </div>
+
   </footer>
 
+  <!-- ENROLLMENT MODAL -->
   <div class="modal" id="enrollModal" aria-hidden="true">
-    <div class="modal-box">
-      <button class="close-modal" aria-label="Close">×</button>
+
+    <div class="modal-box" role="dialog"
+      aria-modal="true" aria-labelledby="modalTitle">
+
+      <button class="close-modal" type="button"
+        aria-label="Close">×</button>
+
       <span class="eyebrow dark">COURSE ENROLLMENT</span>
-      <h2>Enroll in <span id="selectedCourse">Course</span></h2>
+
+      <h2 id="modalTitle">
+        Join <span id="selectedCourse">Course</span>
+      </h2>
+
       <form id="enrollForm">
-        <input type="hidden" id="courseField">
-        <p class="fee-line">Course fee: <strong id="feeText"></strong></p>
-        <div class="two"><label>Full Name<input required name="name" type="text" placeholder="Enter full name"></label><label>Mobile Number<input required name="mobile" type="tel" placeholder="e.g. 03001234567"></label></div>
-        <label>Gmail / Email<input required name="email" type="email" placeholder="you@gmail.com"></label>
-        <div class="two"><label>CNIC Number<input required name="cnic" type="text" inputmode="numeric" placeholder="e.g. 4210112345671"></label><label>Date of Birth<input required name="dob" type="date"></label></div>
-        <div class="two"><label>City<input required name="city" type="text" placeholder="Karachi"></label><label>Education<input required name="education" type="text" placeholder="Matric / Intermediate / Graduate"></label></div>
-        <label>Why do you want to join?<textarea name="reason" rows="3" placeholder="Tell us briefly about your goal"></textarea></label>
-        <h4 class="pay-title">Payment method</h4>
-        <div class="pays">
-          <label class="pay"><input type="radio" name="pay" value="easypaisa" checked> Easypaisa</label>
-          <label class="pay"><input type="radio" name="pay" value="jazzcash"> JazzCash</label>
-          <label class="pay"><input type="radio" name="pay" value="cash"> Cash at the academy</label>
+
+        <input type="hidden" id="courseField" name="course">
+
+        <p class="fee-line">
+          Course Fee: <strong id="feeText"></strong>
+        </p>
+
+        <div class="two">
+          <label>
+            Full Name
+            <input required name="name" type="text"
+              placeholder="Your full name">
+          </label>
+
+          <label>
+            Mobile Number
+            <input required name="mobile" type="tel"
+              placeholder="03001234567">
+          </label>
         </div>
-        <div class="wallet" id="wallet"><img id="walletQr" alt="Payment QR code"><div><p>Send <b id="walletAmt"></b> to <b id="walletNum"></b>, then enter the transaction ID.</p><input name="trx" id="trx" placeholder="Transaction ID"></div></div>
-        <p class="fee-line" id="cashNote" hidden>Pay the fee in cash at the academy. Your seat is confirmed after payment.</p>
-        <label class="agree"><input required type="checkbox"> I confirm that the information provided is accurate.</label>
-        <button class="btn btn-primary full" type="submit">Submit Enrollment Application →</button>
+
+        <label>
+          Email Address
+          <input required name="email" type="email"
+            placeholder="you@gmail.com">
+        </label>
+
+        <div class="two">
+          <label>
+            CNIC Number
+            <input required name="cnic" type="text"
+              inputmode="numeric" placeholder="13 digit CNIC">
+          </label>
+
+          <label>
+            Date of Birth
+            <input required name="dob" type="date">
+          </label>
+        </div>
+
+        <div class="two">
+          <label>
+            City
+            <input required name="city" type="text"
+              placeholder="Karachi">
+          </label>
+
+          <label>
+            Education
+            <input required name="education" type="text"
+              placeholder="Your education">
+          </label>
+        </div>
+
+        <label>
+          Why do you want to join?
+          <textarea name="reason" rows="3"
+            placeholder="Tell us about your goals"></textarea>
+        </label>
+
+        <h4 class="pay-title">Choose Payment Method</h4>
+
+        <div class="pays">
+          <label class="pay">
+            <input type="radio" name="pay"
+              value="easypaisa" checked>
+            Easypaisa
+          </label>
+
+          <label class="pay">
+            <input type="radio" name="pay"
+              value="jazzcash">
+            JazzCash
+          </label>
+
+          <label class="pay">
+            <input type="radio" name="pay"
+              value="cash">
+            Cash at Academy
+          </label>
+        </div>
+
+        <div class="wallet" id="wallet">
+
+          <img id="walletQr" alt="Payment QR code">
+
+          <div>
+            <p>
+              Send <b id="walletAmt"></b> to
+              <b id="walletNum"></b>.
+            </p>
+
+            <input name="trx" id="trx"
+              placeholder="Transaction ID">
+          </div>
+
+        </div>
+
+        <p class="fee-line" id="cashNote" hidden>
+          Pay the fee at the academy.
+        </p>
+
+        <div class="privacy-note">
+          Your submitted information is used for
+          admission processing. Only collect and store
+          personal information through appropriately
+          secured systems.
+        </div>
+
+        <label class="agree">
+          <input required type="checkbox">
+          I confirm that my information is accurate.
+        </label>
+
+        <button class="btn btn-primary full" type="submit">
+          Submit Enrollment Application ↗
+        </button>
+
         <p class="form-note" id="enrollMessage" role="status"></p>
+
       </form>
+
     </div>
   </div>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress">
+    <span id="scrollProgress"></span>
+  </div>
+
+  <button class="back-to-top" id="backToTop"
+    aria-label="Back to top">↑</button>
+
+  <!-- FIREBASE: KEEP YOUR EXISTING CONFIGURATION -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
   <script src="firebase-config.js"></script>
   <script src="script.js"></script>
+
 </body>
 </html>
