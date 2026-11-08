@@ -1,293 +1,904 @@
-const $ = (selector, scope = document) => scope.querySelector(selector);
-const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 
-const PAY = { easypaisa: "Easypaisa", jazzcash: "JazzCash", cash: "Cash at the academy" };
-const NUM = { easypaisa: "0332-3556402", jazzcash: "0315-9262470" };
+/* ==========================================
+   TECHSPHERE ACADEMY
+   MAIN JAVASCRIPT
+   ========================================== */
+
+const $ = (selector, scope = document) =>
+  scope.querySelector(selector);
+
+const $$ = (selector, scope = document) =>
+  [...scope.querySelectorAll(selector)];
+
 const WA = "923009260391";
-const money = n => "PKR " + Number(n).toLocaleString("en-US");
+
+const PAYMENT_NUMBERS = {
+  easypaisa: "0332-3556402",
+  jazzcash: "0315-9262470"
+};
+
+const money = amount =>
+  "PKR " + Number(amount).toLocaleString("en-US");
 
 let db = null;
 let fee = 0;
 
+/* ==========================================
+   1. FIREBASE INITIALIZATION
+   ========================================== */
+
 if (window.FIREBASE_CONFIG && window.firebase) {
   try {
-    if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(window.FIREBASE_CONFIG);
+    }
+
     db = firebase.firestore();
+
   } catch (error) {
-    console.error("Firebase initialization failed:", error);
+    console.error("Firebase initialization error:", error);
   }
 }
 
-const stamp = () => firebase.firestore.FieldValue.serverTimestamp();
-const save = async (collection, item) => {
+const timestamp = () =>
+  firebase.firestore.FieldValue.serverTimestamp();
+
+async function saveData(collection, data) {
   if (!db) return false;
-  await db.collection(collection).doc(item.id).set({ ...item, createdAt: stamp() });
+
+  await db.collection(collection)
+    .doc(data.id)
+    .set({
+      ...data,
+      createdAt: timestamp()
+    });
+
   return true;
-};
-
-const note = (element, html, isError = false) => {
-  if (!element) return;
-  element.className = "form-note" + (isError ? " err" : "");
-  element.innerHTML = html;
-};
-
-/* Theme: remember the visitor's choice and keep the button accessible. */
-const themeButton = $("#themeBtn");
-function setTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  const isDark = theme === "dark";
-  if (themeButton) {
-    themeButton.innerHTML = `<span aria-hidden="true">${isDark ? "☀" : "☾"}</span>`;
-    themeButton.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
-    themeButton.title = `Switch to ${isDark ? "light" : "dark"} theme`;
-  }
-  try { localStorage.setItem("ts_theme", theme); } catch (error) {}
 }
-setTheme(document.documentElement.dataset.theme || "light");
-themeButton?.addEventListener("click", () => {
-  setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
-});
 
-/* Mobile navigation */
-const menuButton = $(".menu-btn");
-const navLinks = $(".nav-links");
-menuButton?.addEventListener("click", () => {
-  const open = navLinks.classList.toggle("open");
-  menuButton.setAttribute("aria-expanded", String(open));
-  menuButton.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
-  menuButton.innerHTML = `<span aria-hidden="true">${open ? "×" : "☰"}</span>`;
-});
-$$(".nav-links a").forEach(link => link.addEventListener("click", () => {
-  navLinks?.classList.remove("open");
-  menuButton?.setAttribute("aria-expanded", "false");
-  if (menuButton) {
-    menuButton.setAttribute("aria-label", "Open navigation menu");
-    menuButton.innerHTML = '<span aria-hidden="true">☰</span>';
+/* ==========================================
+   2. NOTIFICATION MESSAGE
+   ========================================== */
+
+function showMessage(element, message, error = false) {
+  if (!element) return;
+
+  element.textContent = message;
+
+  element.className = "form-note";
+
+  if (error) {
+    element.classList.add("err");
   }
-}));
+}
 
-/* Course search and category filters */
+/* ==========================================
+   3. LIGHT / DARK THEME
+   ========================================== */
+
+const themeButton = $("#themeBtn");
+
+function setTheme(theme) {
+
+  document.documentElement.dataset.theme = theme;
+
+  const dark = theme === "dark";
+
+  if (themeButton) {
+
+    themeButton.textContent = dark ? "☀" : "☾";
+
+    themeButton.setAttribute(
+      "aria-label",
+      dark ? "Switch to light theme" : "Switch to dark theme"
+    );
+
+    themeButton.title =
+      dark ? "Switch to light theme" : "Switch to dark theme";
+  }
+
+  try {
+    localStorage.setItem("ts_theme", theme);
+  } catch (error) {
+    console.warn("Theme preference could not be saved.");
+  }
+}
+
+setTheme(
+  document.documentElement.dataset.theme || "light"
+);
+
+themeButton?.addEventListener("click", () => {
+
+  const current =
+    document.documentElement.dataset.theme;
+
+  setTheme(current === "dark" ? "light" : "dark");
+
+});
+
+/* ==========================================
+   4. MOBILE NAVIGATION
+   ========================================== */
+
+const menuButton = $(".menu-btn");
+const navigation = $("#primaryNav");
+
+function closeMenu() {
+
+  navigation?.classList.remove("open");
+
+  menuButton?.setAttribute("aria-expanded", "false");
+
+  if (menuButton) {
+    menuButton.textContent = "☰";
+    menuButton.setAttribute(
+      "aria-label",
+      "Open navigation menu"
+    );
+  }
+}
+
+menuButton?.addEventListener("click", () => {
+
+  const opened =
+    navigation.classList.toggle("open");
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    String(opened)
+  );
+
+  menuButton.textContent = opened ? "×" : "☰";
+
+  menuButton.setAttribute(
+    "aria-label",
+    opened ? "Close navigation menu" : "Open navigation menu"
+  );
+
+});
+
+$$(".nav-links a").forEach(link => {
+
+  link.addEventListener("click", closeMenu);
+
+});
+
+/* ==========================================
+   5. ALL 12 COURSES
+   ========================================== */
+
+const courses = [
+
+  {
+    name: "Graphic Designing",
+    category: "design",
+    tag: "DESIGN",
+    duration: "3 Months",
+    fee: 18000,
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=85",
+    description: "Photoshop, Illustrator, branding, social media and professional design workflow."
+  },
+
+  {
+    name: "Web Development",
+    category: "development",
+    tag: "DEVELOPMENT",
+    duration: "4 Months",
+    fee: 25000,
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85",
+    description: "HTML, CSS, JavaScript, responsive websites and modern development fundamentals."
+  },
+
+  {
+    name: "Digital Marketing",
+    category: "marketing",
+    tag: "MARKETING",
+    duration: "3 Months",
+    fee: 20000,
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=85",
+    description: "SEO, social media, content strategy, advertising and analytics."
+  },
+
+  {
+    name: "Video Editing",
+    category: "design",
+    tag: "CREATIVE",
+    duration: "3 Months",
+    fee: 22000,
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=900&q=85",
+    description: "Premiere Pro, storytelling, reels and professional video editing."
+  },
+
+  {
+    name: "UI/UX Design",
+    category: "design",
+    tag: "DESIGN",
+    duration: "3 Months",
+    fee: 21000,
+    image: "https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=85",
+    description: "Figma, wireframes, prototypes, design systems and user-centered interfaces."
+  },
+
+  {
+    name: "Python Programming",
+    category: "development",
+    tag: "PROGRAMMING",
+    duration: "3 Months",
+    fee: 19000,
+    image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=900&q=85",
+    description: "Python syntax, functions, programming fundamentals, files and real projects."
+  },
+
+  {
+    name: "Full Stack Development",
+    category: "development",
+    tag: "DEVELOPMENT",
+    duration: "6 Months",
+    fee: 40000,
+    image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=85",
+    description: "Frontend, backend, APIs, databases and complete web application development."
+  },
+
+  {
+    name: "WordPress Development",
+    category: "development",
+    tag: "WEB",
+    duration: "2 Months",
+    fee: 15000,
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=900&q=85",
+    description: "Build business websites, themes, plugins and professional websites."
+  },
+
+  {
+    name: "SEO & Content Writing",
+    category: "marketing",
+    tag: "CONTENT",
+    duration: "2 Months",
+    fee: 14000,
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=85",
+    description: "Keyword research, on-page SEO, blogs, copywriting and content planning."
+  },
+
+  {
+    name: "Freelancing",
+    category: "career",
+    tag: "CAREER",
+    duration: "6 Weeks",
+    fee: 10000,
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85",
+    description: "Profiles, proposals, client communication, portfolios and online work."
+  },
+
+  {
+    name: "Motion Graphics",
+    category: "design",
+    tag: "CREATIVE",
+    duration: "3 Months",
+    fee: 24000,
+    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85",
+    description: "Animation principles, After Effects, titles, transitions and visual effects."
+  },
+
+  {
+    name: "E-Commerce Development",
+    category: "development",
+    tag: "BUSINESS",
+    duration: "3 Months",
+    fee: 23000,
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=85",
+    description: "Online stores, product pages, payment concepts and store management."
+  }
+
+];
+
+/* ==========================================
+   6. GENERATE COURSE CARDS
+   ========================================== */
+
+const courseGrid = $("#courseGrid");
+
+function renderCourses() {
+
+  if (!courseGrid) return;
+
+  courseGrid.innerHTML = courses.map((course, index) => `
+
+    <article class="course-card"
+      data-course="${course.name}"
+      data-category="${course.category}">
+
+      <div class="course-image">
+        <img
+          src="${course.image}"
+          alt="${course.name}"
+          loading="lazy"
+          onerror="this.style.opacity='.2'">
+      </div>
+
+      <div class="course-body">
+
+        <span class="tag">${course.tag}</span>
+
+        <h3>${course.name}</h3>
+
+        <p>${course.description}</p>
+
+        <div class="course-meta">
+          <span>◷ ${course.duration}</span>
+          <strong>${money(course.fee)}</strong>
+        </div>
+
+        <button
+          class="enroll-btn"
+          type="button"
+          data-course-index="${index}">
+
+          Enroll Now ↗
+
+        </button>
+
+      </div>
+
+    </article>
+
+  `).join("");
+
+}
+
+renderCourses();
+
+/* ==========================================
+   7. COURSE SEARCH AND FILTER
+   ========================================== */
+
 const searchInput = $("#courseSearch");
 const filterButtons = $$(".filter-chip");
-const courseCards = $$(".course-card");
-const courseCount = $("#courseCount");
+
+const countLabel = $("#courseCount");
 const emptyState = $("#courseEmpty");
+
 let activeCategory = "all";
 
 function filterCourses() {
-  const term = (searchInput?.value || "").trim().toLowerCase();
+
+  const keyword =
+    (searchInput?.value || "").trim().toLowerCase();
+
   let visible = 0;
-  courseCards.forEach(card => {
-    const title = (card.dataset.course || "").toLowerCase();
-    const description = ($("p", card)?.textContent || "").toLowerCase();
-    const category = card.dataset.category || "all";
-    const matchesText = !term || title.includes(term) || description.includes(term);
-    const matchesCategory = activeCategory === "all" || category === activeCategory;
-    const show = matchesText && matchesCategory;
+
+  $$(".course-card").forEach(card => {
+
+    const title =
+      card.dataset.course.toLowerCase();
+
+    const description =
+      $("p", card).textContent.toLowerCase();
+
+    const category =
+      card.dataset.category;
+
+    const matchesText =
+      !keyword ||
+      title.includes(keyword) ||
+      description.includes(keyword);
+
+    const matchesCategory =
+      activeCategory === "all" ||
+      category === activeCategory;
+
+    const show =
+      matchesText && matchesCategory;
+
     card.hidden = !show;
+
     if (show) visible++;
+
   });
-  if (courseCount) {
-    courseCount.textContent = `Showing ${visible} of ${courseCards.length} courses`;
+
+  if (countLabel) {
+    countLabel.textContent =
+      `Showing ${visible} of ${courses.length} courses`;
   }
-  if (emptyState) emptyState.hidden = visible !== 0;
+
+  if (emptyState) {
+    emptyState.hidden = visible !== 0;
+  }
+
 }
+
 searchInput?.addEventListener("input", filterCourses);
-filterButtons.forEach(button => button.addEventListener("click", () => {
-  activeCategory = button.dataset.filter || "all";
-  filterButtons.forEach(item => {
-    const active = item === button;
-    item.classList.toggle("active", active);
-    item.setAttribute("aria-pressed", String(active));
+
+filterButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    activeCategory = button.dataset.filter;
+
+    filterButtons.forEach(item => {
+
+      const active = item === button;
+
+      item.classList.toggle("active", active);
+
+      item.setAttribute(
+        "aria-pressed",
+        String(active)
+      );
+
+    });
+
+    filterCourses();
+
   });
-  filterCourses();
-}));
-$("#clearCourseFilters")?.addEventListener("click", () => {
-  if (searchInput) searchInput.value = "";
-  activeCategory = "all";
-  filterButtons.forEach(button => {
-    const active = button.dataset.filter === "all";
-    button.classList.toggle("active", active);
-    button.setAttribute("aria-pressed", String(active));
-  });
-  filterCourses();
+
 });
 
-/* Enrollment modal and payment details */
+$("#clearFilters")?.addEventListener("click", () => {
+
+  if (searchInput) searchInput.value = "";
+
+  activeCategory = "all";
+
+  filterButtons.forEach(button => {
+
+    const active = button.dataset.filter === "all";
+
+    button.classList.toggle("active", active);
+
+    button.setAttribute(
+      "aria-pressed",
+      String(active)
+    );
+
+  });
+
+  filterCourses();
+
+});
+
+filterCourses();
+
+/* ==========================================
+   8. ENROLLMENT MODAL
+   ========================================== */
+
 const modal = $("#enrollModal");
+
 const selectedCourse = $("#selectedCourse");
 const courseField = $("#courseField");
+const feeText = $("#feeText");
+
 const enrollMessage = $("#enrollMessage");
 
-function wallet() {
-  const selectedPayment = $('input[name="pay"]:checked')?.value || "easypaisa";
-  const needsTransfer = selectedPayment !== "cash";
-  const walletPanel = $("#wallet");
-  const cashNote = $("#cashNote");
-  const transactionInput = $("#trx");
+function openModal(index) {
 
-  if (walletPanel) walletPanel.hidden = !needsTransfer;
-  if (cashNote) cashNote.hidden = needsTransfer;
-  if (transactionInput) transactionInput.required = needsTransfer;
+  const course = courses[index];
 
-  if (needsTransfer) {
-    const qr = $("#walletQr");
-    if (qr) {
-      qr.style.display = "";
-      qr.src = `images/payment/${selectedPayment}-qr.png`;
-      qr.onerror = () => { qr.style.display = "none"; };
-    }
-    $("#walletNum").textContent = NUM[selectedPayment];
-    $("#walletAmt").textContent = money(fee);
-  }
-}
+  if (!course) return;
 
-$$('input[name="pay"]').forEach(radio => radio.addEventListener("change", wallet));
+  fee = course.fee;
 
-function openModal(courseCard) {
-  const course = courseCard.dataset.course || "Selected course";
-  const priceText = $(".course-meta strong", courseCard)?.textContent || "";
-  fee = parseInt(priceText.replace(/\D/g, ""), 10) || 0;
+  selectedCourse.textContent = course.name;
 
-  selectedCourse.textContent = course;
-  courseField.value = course;
-  $("#feeText").textContent = money(fee);
-  note(enrollMessage, "");
+  courseField.value = course.name;
+
+  feeText.textContent = money(fee);
+
+  showMessage(enrollMessage, "");
+
   modal.classList.add("show");
+
   modal.setAttribute("aria-hidden", "false");
+
   document.body.classList.add("no-scroll");
-  wallet();
+
+  updateWallet();
+
   $(".close-modal")?.focus();
+
 }
-$$(".enroll-btn").forEach(button => {
-  button.addEventListener("click", () => openModal(button.closest(".course-card")));
+
+/* Event delegation for generated buttons */
+
+courseGrid?.addEventListener("click", event => {
+
+  const button = event.target.closest(".enroll-btn");
+
+  if (!button) return;
+
+  openModal(Number(button.dataset.courseIndex));
+
 });
+
+/* ==========================================
+   9. PAYMENT METHOD
+   ========================================== */
+
+function updateWallet() {
+
+  const selected =
+    $('input[name="pay"]:checked')?.value || "easypaisa";
+
+  const wallet = $("#wallet");
+  const cashNote = $("#cashNote");
+  const trx = $("#trx");
+
+  const isCash = selected === "cash";
+
+  wallet.hidden = isCash;
+
+  cashNote.hidden = !isCash;
+
+  trx.required = !isCash;
+
+  if (!isCash) {
+
+    const qr = $("#walletQr");
+
+    qr.style.display = "";
+
+    qr.src = `images/payment/${selected}-qr.png`;
+
+    qr.onerror = () => {
+      qr.style.display = "none";
+    };
+
+    $("#walletNum").textContent =
+      PAYMENT_NUMBERS[selected];
+
+    $("#walletAmt").textContent =
+      money(fee);
+
+  }
+
+}
+
+$$('input[name="pay"]').forEach(radio => {
+
+  radio.addEventListener("change", updateWallet);
+
+});
+
+/* ==========================================
+   10. CLOSE MODAL
+   ========================================== */
 
 function closeModal() {
+
   modal.classList.remove("show");
+
   modal.setAttribute("aria-hidden", "true");
+
   document.body.classList.remove("no-scroll");
+
 }
+
 $(".close-modal")?.addEventListener("click", closeModal);
+
 modal?.addEventListener("click", event => {
-  if (event.target === modal) closeModal();
-});
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && modal?.classList.contains("show")) closeModal();
+
+  if (event.target === modal) {
+    closeModal();
+  }
+
 });
 
-/* Enrollment submission */
+document.addEventListener("keydown", event => {
+
+  if (
+    event.key === "Escape" &&
+    modal.classList.contains("show")
+  ) {
+    closeModal();
+  }
+
+});
+
+/* ==========================================
+   11. ENROLLMENT FORM
+   ========================================== */
+
 $("#enrollForm")?.addEventListener("submit", async event => {
+
   event.preventDefault();
+
   const form = event.currentTarget;
-  const data = Object.fromEntries(new FormData(form));
-  const submitButton = $('button[type="submit"]', form);
+
+  const data =
+    Object.fromEntries(new FormData(form));
+
+  const submitButton =
+    $('button[type="submit"]', form);
 
   const application = {
+
     id: "E" + Date.now().toString(36).toUpperCase(),
+
     course: courseField.value,
-    fee,
+
+    fee: fee,
+
     student: {
+
       name: data.name.trim(),
+
       mobile: data.mobile.trim(),
+
       email: data.email.trim(),
+
       cnic: data.cnic.trim(),
+
       dob: data.dob,
+
       city: data.city.trim(),
+
       education: data.education.trim(),
+
       reason: (data.reason || "").trim()
+
     },
+
     payment: data.pay,
-    trx: data.pay === "cash" ? "" : (data.trx || "").trim(),
+
+    trx:
+      data.pay === "cash"
+        ? ""
+        : (data.trx || "").trim(),
+
     status: "Pending"
+
   };
 
   submitButton.disabled = true;
+
   submitButton.textContent = "Submitting...";
+
   try {
-    const saved = await save("courseEnrollments", application);
-    if (saved) {
-      const message = encodeURIComponent(
-        `Hello TechSphere Academy, I applied for ${application.course} (application ${application.id}).`
-      );
-      note(
+
+    const saved = await saveData(
+      "courseEnrollments",
+      application
+    );
+
+    if (!saved) {
+
+      showMessage(
         enrollMessage,
-        `Application <b>${application.id}</b> received for ${application.course}. We will contact you on ${application.student.mobile}. <a href="https://wa.me/${WA}?text=${message}" target="_blank" rel="noopener noreferrer">Confirm on WhatsApp</a>`
+        "Firebase is not connected. Your application has not been submitted.",
+        true
       );
-      form.reset();
-      wallet();
-    } else {
-      note(enrollMessage, "Demo mode: Firebase is not connected yet, so the academy has not received this application.", true);
+
+      return;
     }
+
+    showMessage(
+      enrollMessage,
+      `Application ${application.id} received. Please contact admissions to confirm your submission.`
+    );
+
+    const message = encodeURIComponent(
+      `Hello TechSphere Academy, I applied for ${application.course}. Application ID: ${application.id}.`
+    );
+
+    const whatsappLink =
+      document.createElement("a");
+
+    whatsappLink.href =
+      `https://wa.me/${WA}?text=${message}`;
+
+    whatsappLink.target = "_blank";
+
+    whatsappLink.rel = "noopener noreferrer";
+
+    whatsappLink.textContent = " Contact admissions on WhatsApp";
+
+    enrollMessage.appendChild(whatsappLink);
+
+    form.reset();
+
+    updateWallet();
+
   } catch (error) {
-    console.error("Enrollment submission failed:", error);
-    note(enrollMessage, "We could not submit your application. Please try again or contact admissions.", true);
+
+    console.error("Enrollment error:", error);
+
+    showMessage(
+      enrollMessage,
+      "Unable to submit your application. Please try again.",
+      true
+    );
+
   } finally {
+
     submitButton.disabled = false;
-    submitButton.textContent = "Submit Enrollment Application →";
+
+    submitButton.textContent =
+      "Submit Enrollment Application ↗";
+
   }
+
 });
 
-/* Contact inquiry */
+/* ==========================================
+   12. CONTACT FORM
+   ========================================== */
+
 $("#contactForm")?.addEventListener("submit", async event => {
+
   event.preventDefault();
+
   const form = event.currentTarget;
-  const data = Object.fromEntries(new FormData(form));
+
+  const data =
+    Object.fromEntries(new FormData(form));
+
   const message = $("#contactMessage");
-  const submitButton = $('button[type="submit"]', form);
+
+  const button =
+    $('button[type="submit"]', form);
+
   const inquiry = {
+
     id: "Q" + Date.now().toString(36).toUpperCase(),
+
     name: data.name.trim(),
+
     email: data.email.trim(),
+
     phone: data.phone.trim(),
+
     course: data.course,
+
     message: data.message.trim(),
+
     status: "New"
+
   };
 
-  submitButton.disabled = true;
-  submitButton.textContent = "Sending...";
+  button.disabled = true;
+
+  button.textContent = "Sending...";
+
   try {
-    const saved = await save("courseInquiries", inquiry);
-    note(
-      message,
-      saved ? "Thanks! Your inquiry has been sent. We will get back to you soon." : "Demo mode: Firebase is not connected yet, so your inquiry has not been delivered.",
-      !saved
+
+    const saved = await saveData(
+      "courseInquiries",
+      inquiry
     );
-    if (saved) form.reset();
+
+    if (saved) {
+
+      showMessage(
+        message,
+        "Thank you! Your inquiry has been received."
+      );
+
+      form.reset();
+
+    } else {
+
+      showMessage(
+        message,
+        "Firebase is not connected. Your inquiry was not delivered.",
+        true
+      );
+
+    }
+
   } catch (error) {
-    console.error("Inquiry submission failed:", error);
-    note(message, "We could not send your inquiry. Please try again.", true);
+
+    console.error("Contact error:", error);
+
+    showMessage(
+      message,
+      "Unable to send your message. Please try again.",
+      true
+    );
+
   } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = "Send Inquiry →";
+
+    button.disabled = false;
+
+    button.textContent = "Send Inquiry ↗";
+
   }
+
 });
 
-/* Reveal sections as they enter the viewport */
-const revealTargets = $$(".section-heading, .course-card, .service, .about-image, .about-copy, .contact-copy, .contact-form, .stats-grid > div");
-if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  revealTargets.forEach(element => element.classList.add("reveal"));
-  const revealObserver = new IntersectionObserver(entries => {
+/* ==========================================
+   13. SCROLL REVEAL ANIMATIONS
+   ========================================== */
+
+const revealElements = $$(
+  ".section-heading, .course-card, .service, " +
+  ".about-image, .about-copy, .contact-copy, " +
+  ".contact-form, .stats-grid > div"
+);
+
+if (
+  "IntersectionObserver" in window &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+) {
+
+  revealElements.forEach(element => {
+    element.classList.add("reveal");
+  });
+
+  const observer = new IntersectionObserver(entries => {
+
     entries.forEach(entry => {
+
       if (entry.isIntersecting) {
+
         entry.target.classList.add("revealed");
-        revealObserver.unobserve(entry.target);
+
+        observer.unobserve(entry.target);
+
       }
+
     });
-  }, { threshold: 0.12 });
-  revealTargets.forEach(element => revealObserver.observe(element));
+
+  }, {
+    threshold: 0.12
+  });
+
+  revealElements.forEach(element => {
+    observer.observe(element);
+  });
+
 }
 
-/* Reading progress and back-to-top */
-const progressBar = $("#scrollProgress");
+/* ==========================================
+   14. SCROLL PROGRESS
+   ========================================== */
+
+const progress = $("#scrollProgress");
 const backToTop = $("#backToTop");
-function updateScrollUI() {
-  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-  if (progressBar) progressBar.style.width = `${progress}%`;
-  backToTop?.classList.toggle("visible", window.scrollY > 550);
+
+function updateScroll() {
+
+  const total =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const percentage =
+    total > 0
+      ? (window.scrollY / total) * 100
+      : 0;
+
+  if (progress) {
+    progress.style.width = percentage + "%";
+  }
+
+  backToTop?.classList.toggle(
+    "visible",
+    window.scrollY > 500
+  );
+
 }
-window.addEventListener("scroll", updateScrollUI, { passive: true });
-updateScrollUI();
-backToTop?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+window.addEventListener(
+  "scroll",
+  updateScroll,
+  { passive: true }
+);
+
+updateScroll();
+
+backToTop?.addEventListener("click", () => {
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+});
+
+/* ==========================================
+   15. INITIALIZATION
+   ========================================== */
+
+console.log(
+  "TechSphere Academy loaded successfully."
+);
